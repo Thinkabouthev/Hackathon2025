@@ -1,0 +1,410 @@
+body, .App {
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    color: #f1f1f1;
+    background-color: #1e1f24;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  
+  /* ЗАДНИЙ ФОН */
+  .hogwarts-bg {
+    position: relative;
+    background: linear-gradient(135deg, #1e1f24, #2b2e3a);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  
+  .hogwarts-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('fone.jpg') center/cover no-repeat;
+    opacity: 0.18;
+    filter: blur(2px);
+    z-index: 0;
+    pointer-events: none; /* Важно! Не блокируем события мыши */
+  }
+  
+  /* ЗАГОЛОВОК */
+  .hogwarts-title {
+    font-family: 'Marcellus', serif;
+    font-size: 3.6rem;
+    text-align: center;
+    color: #ffe066;
+    text-shadow: 0 4px 16px #000, 0 0 10px #ffe06688;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* СЕТКА МЕНТОРОВ */
+  .mentors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.4rem;
+    padding: 0 1.2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* КАРТОЧКА МЕНТОРА */
+  .mentor-card {
+    background: #2c2f3c;
+    border-radius: 18px;
+    padding: 1.6rem 1.2rem;
+    border: 1.5px solid #ffe06644;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  
+  .mentor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 0 20px #ffe06633;
+  }
+  
+  /* АВАТАР */
+  .mentor-img-wrap {
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .mentor-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffe066cc;
+    box-shadow: 0 6px 24px #0006;
+  }
+  
+  .hogwarts-crest {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 6px #ffe066cc);
+  }
+  
+  /* ТЕКСТОВЫЕ СТИЛИ */
+  .hogwarts-name {
+    font-family: 'Marcellus', serif;
+    font-size: 1.6rem;
+    color: #ffe066;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 2px 6px #000a;
+  }
+  
+  .hogwarts-archetype {
+    font-size: 1.1rem;
+    color: #fcefb0;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+  
+  .mentor-element {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fffbe6;
+    margin-bottom: 0.25rem;
+  }
+  
+  .mentor-short {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #ffe066;
+    margin-bottom: 0.2rem;
+  }
+  
+  .mentor-role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #eee;
+    margin-bottom: 0.4rem;
+  }
+  
+  .mentor-card ul {
+    list-style: disc;
+    padding-left: 1.2rem;
+    font-size: 0.96rem;
+    color: #f1f1f1;
+    line-height: 1.5;
+  }
+  
+  .mentor-card li {
+    margin-bottom: 0.3rem;
+  }
+  
+  /* ФУТЕР */
+  .hogwarts-footer {
+    text-align: center;
+    color: #f4e8a3;
+    font-size: 0.95rem;
+    margin-bottom: 2.2rem;
+    margin-top: 1.5rem;
+    opacity: 0.85;
+    text-shadow: 0 1px 5px #000;
+  }
+  
+  /* КНОПКА ПРОДОЛЖИТЬ */
+  .continue-btn {
+    margin: 2.5rem auto 0 auto;
+    display: block;
+    background: linear-gradient(90deg, #a259e6 0%, #ffe066 100%);
+    color: #23272f;
+    font-family: 'Marcellus', serif;
+    font-size: 1.18rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    padding: 0.85rem 2.5rem;
+    box-shadow: 0 4px 18px #a259e655, 0 0 0 2px #ffe06644;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s, transform 0.18s;
+    letter-spacing: 1px;
+  }
+  
+  .continue-btn:hover {
+    background: linear-gradient(90deg, #ffe066 0%, #a259e6 100%);
+    color: #1e1f24;
+    box-shadow: 0 8px 32px #ffe06688, 0 0 0 4px #a259e6cc;
+    transform: translateY(-2px) scale(1.04);
+  }
+  
+  /* МАГИЧЕСКАЯ ФОРМА */
+  .magic-form {
+    background: rgba(44, 48, 70, 0.92);
+    border-radius: 22px;
+    box-shadow: 0 8px 32px 0 rgba(80,40,120,0.22), 0 0 24px 4px #a259e655;
+    max-width: 420px;
+    margin: 4rem auto 0 auto;
+    padding: 2.2rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .magic-form label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.08rem;
+    color: #ffe066;
+    margin-bottom: 0.5rem;
+    font-family: 'Marcellus', serif;
+    letter-spacing: 0.5px;
+  }
+  
+  /* ИСПРАВЛЕННЫЕ ИНПУТЫ - НЕ БЛОКИРУЮТ ВВОД */
+  .magic-input, .magic-textarea {
+    width: 100%;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+    border: 1.5px solid #a259e6;
+    background: #23272f;
+    color: #ffe066;
+    font-size: 1.08rem;
+    font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 2px 8px #a259e622;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    resize: none;
+    box-sizing: border-box;
+    /* Важно! Убираем любые блокировки */
+    pointer-events: auto;
+    user-select: text;
+  }
+  
+  .magic-input:focus, .magic-textarea:focus {
+    border: 1.5px solid #ffe066;
+    box-shadow: 0 4px 16px #ffe06655;
+  }
+  
+  /* ИСПРАВЛЕННЫЕ СТАНДАРТНЫЕ ИНПУТЫ */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #23272f; /* Темный фон */
+    color: #ffe066; /* Золотистый текст */
+    border: 2px solid #a259e6; /* Фиолетовая граница */
+    border-radius: 10px;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+    /* Важно! Убираем любые блокировки */
+    pointer-events: auto;
+    user-select: text;
+  }
+  
+  .form-input:focus {
+    border-color: #ffe066;
+    box-shadow: 0 0 10px #ffe06666;
+  }
+  
+  .form-input::placeholder {
+    color: #a259e6;
+    opacity: 0.7;
+  }
+  
+  /* ОШИБКИ */
+  .form-error {
+    color: #ff6b6b;
+    background: #23272fdd;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.01rem;
+    font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 2px 8px #ff6b6b33;
+    text-align: center;
+  }
+  
+  /* КНОПКА ОТПРАВКИ */
+  .continue-button {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.8rem;
+    background: linear-gradient(90deg, #ffe066, #fff3b0);
+    color: #232323;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease-in-out;
+    font-weight: 600;
+  }
+  
+  .continue-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #fff3b0, #ffe066);
+  }
+  
+  .continue-button:active {
+    transform: translateY(0);
+  }
+  
+  /* АДАПТИВ */
+  @media (max-width: 768px) {
+    .hogwarts-title {
+      font-size: 2.4rem;
+    }
+    
+    .mentor-img {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .hogwarts-footer {
+      font-size: 0.85rem;
+    }
+    
+    .magic-form {
+      max-width: 90%;
+      padding: 1.8rem 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hogwarts-title {
+      font-size: 1.8rem;
+    }
+    
+    .mentor-card {
+      padding: 1rem;
+    }
+    
+    .mentor-img {
+      width: 90px;
+      height: 90px;
+    }
+    
+    .magic-form {
+      padding: 1.5rem 1rem;
+    }
+  }
+  .archetype-result {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+  
+  .archetype-result h3 {
+    color: #f4c430;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .archetype-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid #f4c43055;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    transition: 0.3s ease;
+  }
+  
+  .archetype-card:hover {
+    background-color: rgba(255, 255, 255, 0.13);
+  }
+  
+  .archetype-card h4 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.3rem;
+  }
+  .archetype-result {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+  }
+  
+  .archetype-result h3 {
+    color: #f4c430;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .archetype-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-left: 6px solid #f4c430;
+    padding: 1rem 1.3rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    transition: 0.3s ease;
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
+  }
+  
+  .archetype-card:hover {
+    background-color: rgba(255, 255, 255, 0.13);
+  }
+  
+  .archetype-card h4 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  

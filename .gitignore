@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+.env
+.env.*
+*.log
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.envrc
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Others
+*.sqlite3
