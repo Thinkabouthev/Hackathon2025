@@ -6,6 +6,25 @@ const NameAbsurdity = ({ formData, updateFormData }) => {
   const [uxAlternative, setUxAlternative] = useState(formData.uxAlternative || '');
   const [resumeLieLevel, setResumeLieLevel] = useState(formData.resumeLieLevel || 5);
 
+  // Автоматически заполняем данные при монтировании компонента
+  useEffect(() => {
+    // Если поля не заполнены, заполняем их автоматически
+    const defaultRealName = realName || 'рпитло';
+    const defaultUxAlternative = uxAlternative || 'отлито';
+    
+    // Устанавливаем значения
+    if (!realName) setRealName(defaultRealName);
+    if (!uxAlternative) setUxAlternative(defaultUxAlternative);
+    
+    // Обновляем formData для валидации
+    updateFormData({
+      realName: defaultRealName,
+      uxAlternative: defaultUxAlternative,
+      resumeLieLevel: resumeLieLevel,
+      nameChoice: 'Design-Doomer' // Важное поле для валидации
+    });
+  }, []);
+
   useEffect(() => {
     // Always display "Design-Doomer" regardless of input
     if (realName) {
@@ -17,17 +36,26 @@ const NameAbsurdity = ({ formData, updateFormData }) => {
 
   const handleRealNameChange = (e) => {
     setRealName(e.target.value);
-    updateFormData({ realName: e.target.value });
+    updateFormData({ 
+      realName: e.target.value,
+      nameChoice: 'Design-Doomer' // Обновляем поле для валидации
+    });
   };
 
   const handleUxAlternativeChange = (e) => {
     setUxAlternative(e.target.value);
-    updateFormData({ uxAlternative: e.target.value });
+    updateFormData({ 
+      uxAlternative: e.target.value,
+      nameChoice: 'Design-Doomer' // Обновляем поле для валидации
+    });
   };
 
   const handleResumeLieLevelChange = (e) => {
     setResumeLieLevel(e.target.value);
-    updateFormData({ resumeLieLevel: e.target.value });
+    updateFormData({ 
+      resumeLieLevel: e.target.value,
+      nameChoice: 'Design-Doomer' // Обновляем поле для валидации
+    });
   };
 
   return (
@@ -58,7 +86,7 @@ const NameAbsurdity = ({ formData, updateFormData }) => {
         </div>
 
         <div className="input-group" style={{ marginTop: '2rem' }}>
-          <label htmlFor="uxAlternative">What would you be if not in UX?</label>
+          <label htmlFor="uxAlternative">What would you be if not in IT?</label>
           <input
             type="text"
             id="uxAlternative"

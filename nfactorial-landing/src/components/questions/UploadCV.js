@@ -5,6 +5,7 @@ const UploadCV = ({ formData, updateFormData }) => {
   const [fileError, setFileError] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [uploadAttempts, setUploadAttempts] = useState(0);
+  const [showSpecificTip, setShowSpecificTip] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -18,27 +19,54 @@ const UploadCV = ({ formData, updateFormData }) => {
     
     setUploadAttempts(prev => prev + 1);
     
-    // Check if it's a PDF file
+    // Проверяем имя файла
+    const correctFileName = "cv.pdf";
+    const isCorrectName = file.name.toLowerCase() === correctFileName.toLowerCase();
+    
+    // Если 3+ попытки, показать конкретную подсказку
+    if (uploadAttempts >= 3 && !showSpecificTip) {
+      setShowSpecificTip(true);
+    }
+    
+    // Check if it's a PDF file with correct name
     if (file.type === 'application/pdf') {
-      setFileName(file.name);
-      setFileError('');
-      setUploadSuccess(true);
-      updateFormData({ cvFileName: file.name, cvFile: file });
-      
-      // Show success message for 3 seconds
-      setTimeout(() => {
-        setUploadSuccess(false);
-      }, 3000);
+      if (isCorrectName) {
+        // Принимаем файл с правильным именем
+        setFileName(file.name);
+        setFileError('');
+        setUploadSuccess(true);
+        updateFormData({ cvFileName: file.name, cvFile: file, cvSkipped: false });
+        
+        // Show success message for 3 seconds
+        setTimeout(() => {
+          setUploadSuccess(false);
+        }, 3000);
+      } else {
+        setFileName(file.name);
+        
+        // После нескольких попыток с PDF принять любой PDF
+        if (uploadAttempts >= 4) {
+          // После 4 попыток тайно принять любой PDF
+          setFileError('');
+          setUploadSuccess(true);
+          updateFormData({ cvFileName: file.name, cvFile: file, cvSkipped: false });
+          
+          setTimeout(() => {
+            setUploadSuccess(false);
+          }, 3000);
+        } else {
+          setFileError(`Error: File must be named '${correctFileName}'`);
+        }
+      }
     } else {
       setFileName(file.name);
       
-      if (uploadAttempts >= 2) {
-        // After 2 attempts, secretly accept any file
+      if (uploadAttempts >= 5) {
+        // После 5 попыток тайно принять любой файл
         setFileError('');
         setUploadSuccess(true);
-        updateFormData({ cvFileName: file.name, cvFile: file });
+        updateFormData({ cvFileName: file.name, cvFile: file, cvSkipped: false });
         
-        // Show success message for 3 seconds
         setTimeout(() => {
           setUploadSuccess(false);
         }, 3000);
@@ -46,6 +74,16 @@ const UploadCV = ({ formData, updateFormData }) => {
         setFileError('Error: Only .zxvcv-form17 files are accepted');
       }
     }
+  };
+
+  // Обходной путь - пропустить загрузку CV
+  const skipUpload = () => {
+    setUploadSuccess(true);
+    updateFormData({ cvSkipped: true });
+    
+    setTimeout(() => {
+      setUploadSuccess(false);
+    }, 2000);
   };
 
   return (
@@ -70,6 +108,12 @@ const UploadCV = ({ formData, updateFormData }) => {
                 <span className="requirement-icon">🤫</span>
                 <span>Psst... PDF files work too</span>
               </div>
+              {showSpecificTip && (
+                <div className="requirement-item file-name-hint">
+                  <span className="requirement-icon">💡</span>
+                  <span>The file must be named "cv.pdf"</span>
+                </div>
+              )}
             </div>
             
             <label className="custom-file-upload">
@@ -93,6 +137,14 @@ const UploadCV = ({ formData, updateFormData }) => {
             {uploadSuccess && (
               <div className="file-success">
                 File uploaded successfully!
+              </div>
+            )}
+            
+            {uploadAttempts >= 3 && !uploadSuccess && (
+              <div className="skip-option">
+                <button type="button" onClick={skipUpload} className="skip-button">
+                  Skip this step (sshhh...)
+                </button>
               </div>
             )}
           </div>
@@ -129,6 +181,12 @@ const UploadCV = ({ formData, updateFormData }) => {
           color: #aaa;
           font-size: 0.8rem;
           opacity: 0.6;
+        }
+        
+        .file-name-hint {
+          color: #e41c3c;
+          font-size: 0.85rem;
+          animation: fadeIn 0.5s ease;
         }
         
         .custom-file-upload {
@@ -178,9 +236,36 @@ const UploadCV = ({ formData, updateFormData }) => {
           animation: fadeIn 0.5s ease;
         }
         
+        .skip-option {
+          margin-top: 1.5rem;
+          text-align: right;
+          animation: fadeIn 0.5s ease;
+        }
+        
+        .skip-button {
+          background: none;
+          border: none;
+          color: #aaa;
+          font-size: 0.8rem;
+          text-decoration: underline;
+          cursor: pointer;
+          opacity: 0.6;
+          transition: opacity 0.2s;
+        }
+        
+        .skip-button:hover {
+          opacity: 1;
+        }
+        
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
+        }
+        
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
       `}</style>
     </div>

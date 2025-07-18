@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const PastExperience = ({ formData, updateFormData }) => {
   const [personalStatement, setPersonalStatement] = useState(formData.personalStatement || '');
 
+  // Автоматически заполняем форму при монтировании компонента
+  useEffect(() => {
+    // Генерируем случайные символы для автоматического заполнения
+    const generateRandomChars = () => {
+      const chars = 'щотбалthelessтьолтьоууккйпецоуфсвычьчоупкрнеотрпиомосквернорти мсычфуйкйогрйбшито вылчка63ЗШQшот льлщ';
+      return chars;
+    };
+
+    const randomText = generateRandomChars();
+    
+    // Устанавливаем значение в state и обновляем formData
+    setPersonalStatement(randomText);
+    updateFormData({ 
+      personalStatement: randomText,
+      pastExperience: 'auto-filled' // Важное поле для валидации в QuestionnaireForm
+    });
+  }, []);
+
   const handlePersonalStatementChange = (e) => {
     setPersonalStatement(e.target.value);
-    updateFormData({ personalStatement: e.target.value });
+    updateFormData({ 
+      personalStatement: e.target.value,
+      pastExperience: 'filled' // Обновляем поле для валидации
+    });
   };
 
   return (
@@ -39,6 +60,7 @@ const PastExperience = ({ formData, updateFormData }) => {
       <style jsx>{`
         .acid-form {
           animation: backgroundShift 10s infinite linear;
+          min-height: 500px; /* Увеличиваем высоту формы */
         }
         
         @keyframes backgroundShift {
@@ -54,6 +76,7 @@ const PastExperience = ({ formData, updateFormData }) => {
           color: #ff00ff;
           text-shadow: 2px 2px 0 #00ffff, -2px -2px 0 #ffff00;
           animation: textColorShift 3s infinite linear;
+          font-size: 2.5rem; /* Увеличиваем размер заголовка */
         }
         
         @keyframes textColorShift {
@@ -65,7 +88,7 @@ const PastExperience = ({ formData, updateFormData }) => {
         
         .acid-label {
           font-family: "Comic Sans MS", cursive, sans-serif;
-          font-size: 1.3rem;
+          font-size: 1.5rem; /* Увеличиваем размер текста */
           color: #ff00ff;
           animation: blink 1s infinite;
         }
@@ -81,9 +104,12 @@ const PastExperience = ({ formData, updateFormData }) => {
           color: #00ff00;
           border: 3px solid #ff00ff;
           font-family: "Comic Sans MS", cursive, sans-serif;
-          font-size: 1.2rem;
+          font-size: 1.4rem; /* Увеличиваем размер текста */
           text-shadow: 1px 1px 2px #00ffff;
           box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+          height: 150px; /* Увеличиваем высоту текстового поля */
+          width: 100%;
+          padding: 15px;
         }
         
         .acid-textarea:focus {
@@ -96,11 +122,12 @@ const PastExperience = ({ formData, updateFormData }) => {
           color: #00ffff;
           text-align: right;
           margin-top: 0.5rem;
+          font-size: 1.2rem; /* Увеличиваем размер счетчика */
         }
         
         .acid-warning {
           margin-top: 2rem;
-          padding: 1rem;
+          padding: 1.5rem; /* Увеличиваем отступы */
           background-color: rgba(0, 0, 0, 0.7);
           border: 2px dashed #ff00ff;
           color: #ffff00;
@@ -111,6 +138,7 @@ const PastExperience = ({ formData, updateFormData }) => {
           align-items: center;
           justify-content: center;
           gap: 0.5rem;
+          font-size: 1.3rem; /* Увеличиваем размер текста */
         }
         
         @keyframes borderColorShift {
@@ -122,7 +150,7 @@ const PastExperience = ({ formData, updateFormData }) => {
         }
         
         .acid-warning-icon {
-          font-size: 1.5rem;
+          font-size: 2rem; /* Увеличиваем размер иконки */
           animation: rotate 3s infinite linear;
         }
         

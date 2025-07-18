@@ -25,6 +25,11 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background: #c41833;
 }
 
 .phone-input {
@@ -74,6 +79,13 @@
   font-size: 1.2rem;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.confirm-button.disabled {
+  background: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .warning-message {
@@ -112,6 +124,52 @@
   line-height: 1.5;
 }
 
+/* Стили для экрана загрузки */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+  height: 200px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(228, 28, 60, 0.3);
+  border-radius: 50%;
+  border-top-color: #e41c3c;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.loading-screen p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Стили для сообщения об ошибке */
+.error-message {
+  background-color: rgba(228, 28, 60, 0.1);
+  border-left: 4px solid #e41c3c;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-radius: 4px;
+  animation: fadeIn 0.5s;
+}
+
+.error-message h3 {
+  color: #e41c3c;
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+}
+
+.error-message p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.5; }
@@ -127,4 +185,8 @@
   0% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 } 

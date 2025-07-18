@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EmotionalReflection = ({ formData, updateFormData }) => {
   const [reflection, setReflection] = useState(formData.reflection || '');
   const [hasSubmitted, setHasSubmitted] = useState(formData.reflectionSubmitted || false);
   const [isTyping, setIsTyping] = useState(false);
+
+  // Set emotionalResponse if the user has already submitted a reflection
+  useEffect(() => {
+    if (hasSubmitted) {
+      updateFormData({ 
+        reflection: reflection,
+        reflectionSubmitted: true,
+        emotionalResponse: reflection
+      });
+    }
+  }, []);
 
   const handleReflectionChange = (e) => {
     setReflection(e.target.value);
@@ -20,7 +31,8 @@ const EmotionalReflection = ({ formData, updateFormData }) => {
         setHasSubmitted(true);
         updateFormData({ 
           reflection: reflection,
-          reflectionSubmitted: true 
+          reflectionSubmitted: true,
+          emotionalResponse: reflection  // Add emotionalResponse for form validation
         });
       }, 2000);
     }
@@ -125,7 +137,7 @@ const EmotionalReflection = ({ formData, updateFormData }) => {
           justify-content: center;
           width: 36px;
           height: 36px;
-          background: linear-gradient(135deg, var(--primary-color), var(--secondary-accent));
+          background: linear-gradient(135deg, #e41c3c, #ff1493);
           color: white;
           border-radius: 50%;
           margin-right: 0.75rem;
@@ -139,10 +151,11 @@ const EmotionalReflection = ({ formData, updateFormData }) => {
           border-radius: 18px;
           border-top-left-radius: 4px;
           max-width: 80%;
+          color: #333;
         }
         
         .user-bubble {
-          background-color: var(--primary-color);
+          background-color: #e41c3c;
           color: white;
           border-top-left-radius: 18px;
           border-top-right-radius: 4px;
@@ -163,17 +176,18 @@ const EmotionalReflection = ({ formData, updateFormData }) => {
           padding: 0.75rem;
           resize: none;
           font-family: 'Inter', sans-serif;
+          color: #333;
         }
         
         .reflection-textarea:focus {
           outline: none;
-          border-color: var(--primary-color);
+          border-color: #e41c3c;
         }
         
         .send-button {
           align-self: flex-end;
           padding: 0.5rem 1.5rem;
-          background-color: var(--primary-color);
+          background-color: #e41c3c;
           color: white;
           border: none;
           border-radius: 18px;
@@ -183,7 +197,7 @@ const EmotionalReflection = ({ formData, updateFormData }) => {
         }
         
         .send-button:hover:not(:disabled) {
-          background-color: #7525c9;
+          background-color: #d01835;
         }
         
         .send-button:disabled {
