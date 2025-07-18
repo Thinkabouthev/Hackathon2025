@@ -30,7 +30,9 @@ UX Application from Hell — это игра, замаскированная п�
 	•	🔥 Играется в браузере
 	•	⚙️ Вся логика построена на уровне компонентов/страниц
 	•	🤡 Не требует реальной валидации данных — это UX-сюр
+ <img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/9579cea0-6649-4129-94d6-ae742c9beee1" />
+ <img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/c37dc4a9-4e1c-44aa-b812-786fd463e8a5" />
+ <img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/75d88349-0d23-46f0-95c7-15c060c45463" />
 <img width="1920" height="1080" alt="4" src="https://github.com/user-attachments/assets/59319f34-1a29-4690-86fa-dfeaa2299203" />
-<img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/75d88349-0d23-46f0-95c7-15c060c45463" />
-<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/c37dc4a9-4e1c-44aa-b812-786fd463e8a5" />
-<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/9579cea0-6649-4129-94d6-ae742c9beee1" />
+
+
