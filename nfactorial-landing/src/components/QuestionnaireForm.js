@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './QuestionnaireForm.css';
 import AboutYou from './questions/AboutYou';
 import DistributionPlan from './questions/DistributionPlan';
@@ -13,13 +14,29 @@ import TechStack from './questions/TechStack';
 import EmotionalReflection from './questions/EmotionalReflection';
 import PhotoAgreement from './questions/PhotoAgreement';
 
+// Базовый URL API с полным адресом
+const API_BASE_URL = 'http://localhost:8000';
+
 const QuestionnaireForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [bossHealth, setBossHealth] = useState(100);
   const [showBossFight, setShowBossFight] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
   const totalSteps = 11;
+  const navigate = useNavigate();
+  
+  // Получаем информацию о менторе, если она есть в localStorage
+  const [mentorInfo, setMentorInfo] = useState(null);
+  
+  useEffect(() => {
+    const storedMentorInfo = localStorage.getItem('mentor_info');
+    if (storedMentorInfo) {
+      setMentorInfo(JSON.parse(storedMentorInfo));
+    }
+  }, []);
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
@@ -49,7 +66,60 @@ const QuestionnaireForm = () => {
     
     if (newHealth === 0) {
       setGameOver(true);
+      handleGameCompletion();
     }
+  };
+  
+  const handleGameCompletion = async () => {
+    // Проверяем, есть ли информация о менторе
+    if (!mentorInfo || !mentorInfo.user_id) {
+      setError("Не удалось определить ID пользователя");
+      return;
+    }
+    
+    setSubmitting(true);
+    
+    try {
+      // Отправляем запрос на API для завершения соревнования
+      const response = await fetch(`${API_BASE_URL}/complete`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: mentorInfo.user_id
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Успешное завершение
+        console.log("Соревнование успешно завершено:", data);
+        
+        // Перед перенаправлением на страницу победителя, записываем текущего победителя в localStorage
+        // для возможного дебага
+        localStorage.setItem('last_winner', JSON.stringify(data));
+        
+        // Задержка перед перенаправлением
+        setTimeout(() => {
+          // Перенаправляем на страницу победителя
+          navigate('/winner');
+        }, 3000);
+      } else {
+        setError(data.message || "Произошла ошибка при отправке результатов");
+      }
+    } catch (err) {
+      setError("Ошибка соединения: " + err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Проверяем, нужно ли показывать стандартные кнопки навигации
+  const shouldShowNavigationButtons = () => {
+    // Не показываем для PhoneNumber (шаг 2)
+    return currentStep !== 2;
   };
 
   const renderQuestion = () => {
@@ -66,6 +136,11 @@ const QuestionnaireForm = () => {
             <div className="victory-message">
               <h2>You survived UX hell. Your soul is submitted.</h2>
               <p>Congratulations! Your application has been received.</p>
+              {submitting && <p className="loading-text">Отправка результатов...</p>}
+              {error && <p className="error-text">{error}</p>}
+              {!submitting && !error && (
+                <p className="redirect-text">Перенаправление на страницу победителя...</p>
+              )}
             </div>
           ) : (
             <>
@@ -86,7 +161,7 @@ const QuestionnaireForm = () => {
       case 1:
         return <AboutYou formData={formData} updateFormData={updateFormData} />;
       case 2:
-        return <PhoneNumber formData={formData} updateFormData={updateFormData} />;
+        return <PhoneNumber formData={formData} updateFormData={updateFormData} onNext={handleNext} />;
       case 3:
         return <Links formData={formData} updateFormData={updateFormData} />;
       case 4:
@@ -131,7 +206,7 @@ const QuestionnaireForm = () => {
         
         {renderQuestion()}
         
-        {!showBossFight && !gameOver && (
+        {!showBossFight && !gameOver && shouldShowNavigationButtons() && (
           <div className="navigation-buttons">
             {currentStep > 1 && (
               <button className="back-button" onClick={handleBack}>

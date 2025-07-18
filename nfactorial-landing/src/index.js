@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';         // /game
 import App1 from './App1';       // /
 import Anketa from './Anketa';   // /anketa
+import Winner from './Winner';   // /winner
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<App1 />} />
         <Route path="/anketa" element={<Anketa />} />
         <Route path="/game" element={<App />} />
+        <Route path="/winner" element={<Winner />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

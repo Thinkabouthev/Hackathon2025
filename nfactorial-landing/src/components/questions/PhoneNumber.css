@@ -1,0 +1,130 @@
+.instruction {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.instruction-detail {
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.static-phone {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.edit-button {
+  background: #e41c3c;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.phone-input {
+  margin: 20px 0;
+}
+
+.phone-display {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.phone-digit {
+  display: inline-block;
+  width: 25px;
+  text-align: center;
+}
+
+.current-digit {
+  background: #ffcc00;
+  color: black;
+  border-radius: 4px;
+  animation: pulse 1s infinite;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.increment-button {
+  background: #e41c3c;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.warning-message {
+  color: #e41c3c;
+  font-weight: bold;
+  margin: 15px 0;
+  animation: fadeIn 0.3s;
+}
+
+.inactivity-message {
+  color: #e41c3c;
+  font-weight: bold;
+  margin: 15px 0;
+  animation: blink 0.5s infinite;
+}
+
+.next-container {
+  margin-top: 30px;
+}
+
+.next-button {
+  background: #16a085;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.ux-message {
+  font-style: italic;
+  color: #666;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+} 

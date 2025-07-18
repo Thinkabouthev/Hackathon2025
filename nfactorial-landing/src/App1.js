@@ -94,11 +94,10 @@ function App1() {
         ))}
       </div>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-      <button className="continue-button" onClick={() => navigate('/anketa')}>
-  Продолжить →
-</button>
-
-</div>
+        <button className="continue-button" onClick={() => navigate('/anketa')}>
+          Продолжить →
+        </button>
+      </div>
 
       <div className="hogwarts-footer">⚡️ Пусть магия будет с вашей командой! ⚡️</div>
     </div>

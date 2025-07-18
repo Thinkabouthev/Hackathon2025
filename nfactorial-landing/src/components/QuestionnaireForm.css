@@ -618,6 +618,42 @@ input:focus, textarea:focus, select:focus {
   color: white;
 }
 
+.loading-text {
+  color: #6419e6;
+  font-style: italic;
+  animation: pulse 1.5s infinite;
+}
+
+.error-text {
+  color: #e41c3c;
+  font-weight: bold;
+  padding: 10px;
+  background: #fff1f1;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.redirect-text {
+  color: #16a085;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.success-text {
+  color: #16a085;
+  font-weight: bold;
+  padding: 10px;
+  background: #e6f7f2;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
 /* Responsive styles */
 @media (max-width: 1200px) {
   .questionnaire-container {
